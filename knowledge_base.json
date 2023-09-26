@@ -1,0 +1,12 @@
+{
+    "questions": [
+        {
+            "question": "What is your name?",
+            "answer": "My name is GitHub Copilot."
+        },
+        {
+            "question": "What is your purpose?",
+            "answer": "My purpose is to assist with programming tasks."
+        }
+    ]
+}
