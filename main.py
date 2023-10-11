@@ -27,6 +27,7 @@ def get_answer_for_question(question: str, knowledge_base: dict) -> str | None:
 def chat_bot():
     knowledge_base: dict = load_knowledge_base("knowledge_base.json")
     while True:
+        execute_weather_logic = False
         user_input: str = input('You: ')
 
         if user_input.lower() == 'quit':
@@ -37,23 +38,20 @@ def chat_bot():
         # Access tokens, parts of speech, named entities, etc.
         for token in doc:
             print(token.text, token.pos_, token.dep_)
+            if token.text.lower() == "weather":
+                execute_weather_logic = True
 
         best_match: str | None = find_best_match(user_input, [q["question"] for q in knowledge_base["questions"]])
         if best_match:
             answer: str = get_answer_for_question(best_match, knowledge_base)
             print(f'Bot: {answer}')
+        elif execute_weather_logic:
+                    # User is asking about the weather
+                    # Implement logic to fetch weather information and respond
+            response = "I will check the weather for you. Do you want to know the weather for today or tomorrow?"
+            print(f'Bot: {response}')
         else:
-            for token in doc:
-                if (token.text.lower() == "weather" or token.text.lower() == "tomorrow") and token.dep_ == "nsubj":
-                # User is asking about the weather
-                # Implement logic to fetch weather information and respond
-                    response = "Should I check the weather for you?"
-                    print(f'Bot: {response}')
-                    if user_input.lower() == "yes":
-                        response = "Great! I'll check the weather for you."
-                        print(f'Bot: {response}')
-
-            """print('Bot: I don\'t know the answer. Can you teach me?')
+            print('Bot: I don\'t know the answer. Can you teach me?')
             new_answer: str = input('Type the answer or "skip" to skip: ')
 
             if new_answer.lower() != 'skip':
@@ -62,7 +60,7 @@ def chat_bot():
                 print('Thank you! I learned a new response!')
             else:
                 print('Ok, I\'ll ask you later.')
-                print(knowledge_base)"""
+                #print(knowledge_base)
 
 
 if __name__=='__main__':
