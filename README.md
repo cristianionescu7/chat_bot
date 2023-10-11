@@ -1,2 +1,2 @@
 # chat_bot
-Building a basic chat bot that learns manually
+Building a basic chatbot and learning about NLP.
